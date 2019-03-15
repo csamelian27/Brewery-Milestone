@@ -18,21 +18,28 @@ class App extends Component {
 
   handleSubmit = (boardInfo) => {
     this.setState({
-      boards: [boardInfo, ...this.state.boards]
-    })
+      boards: [...this.state.boards, boardInfo]
+    }, () => console.log(this.state))
   }
 
-  handleClick = () => {
-    
+  handleClick = (brewery, board) => {
+    const newArray = [...this.state.boards]
+    //found the board that we want to add a brew to
+    const myBoard = newArray.find(boardObj => board === boardObj.boardName)
+    //add the brew to myBoard's array of brews
+    myBoard.brews = [...myBoard.brews, brewery]
+    this.setState({
+      boards: newArray
+    })
   }
 
   render() {
     console.log(this.state);
     return (
-      <center className="container">
-        <IndexContainer breweries={this.state.breweries}/>
+      <div className="container">
+        <IndexContainer breweries={this.state.breweries} handleClick={this.handleClick} boards={this.state.boards} />
         <BoardContainer handleSubmit={this.handleSubmit} boards={this.state.boards} />
-      </center>
+      </div>
     );
   }
 }

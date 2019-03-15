@@ -4,7 +4,8 @@ import BoardCard from '../Components/BoardCard'
 class BoardContainer extends Component {
 
   state = {
-    boardName: ""
+    boardName: "",
+    brews: []
   }
 
   handleChange = (e) => {
@@ -26,12 +27,16 @@ class BoardContainer extends Component {
     console.log(this.state);
     return (
       <div className="boardContainer">
-        <h1>Boards</h1>
-        <form onSubmit={this.handleSubmit} >
-          <input type="text" name="boardName" placeholder="board name" value={this.state.boardName} onChange={this.handleChange} />
-          <button>Create Board</button>
-        </form>
-        {this.props.boards.map((board, index) => <BoardCard key={index} board={board} />)}
+        <div className="boardsDiv">
+          <h1>Boards</h1>
+          <form onSubmit={this.handleSubmit} className="boardForm">
+            <input type="text" name="boardName" placeholder="board name" value={this.state.boardName} onChange={this.handleChange} />
+            <button>Create Board</button>
+          </form>
+        </div>
+        <div className="cardsDiv">
+          {this.props.boards.map((board, index) => <BoardCard key={index} board={board} />)}
+        </div>
       </div>
     )
   }
